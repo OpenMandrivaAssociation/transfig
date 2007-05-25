@@ -1,7 +1,7 @@
 %define name	transfig
 %define version	3.2.5
 %define aversion alpha7
-%define release	%mkrel 0.4
+%define release	%mkrel 0.5
 %if %{mdkversion} >= 200700
 %define prefix	%{_prefix}
 %define bindir	%{_bindir}
@@ -24,6 +24,7 @@ Patch2: transfig.3.2.3d-includes.patch
 #Patch3: transfig.3.2.3d-strerror.patch
 #Patch4: transfig.3.2.5-alpha5-gcc4.patch
 Patch5: transfig.3.2.5-alpha5-dotsyms.patch
+Patch6: transfig.3.2.5_alpha7-use-tempfile-for-bitmap-eps.patch
 URL: http://www.xfig.org
 Buildroot: %{_tmppath}/%{name}-%{version}-root
 BuildRequires: libjpeg-devel, libpng-devel, XFree86-devel, imake
@@ -43,6 +44,7 @@ rm -rf $RPM_BUILD_ROOT
 #%patch3 -p1 -b .strerror
 #%patch4 -p1 -b .gcc4
 %patch5 -p1 -b .dotsyms
+%patch6 -p1 -b .tmpepsfile
 
 %build
 xmkmf
