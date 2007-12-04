@@ -27,7 +27,7 @@ Patch5: transfig.3.2.5-alpha5-dotsyms.patch
 Patch6: transfig.3.2.5_alpha7-use-tempfile-for-bitmap-eps.patch
 URL: http://www.xfig.org
 Buildroot: %{_tmppath}/%{name}-%{version}-root
-BuildRequires: libjpeg-devel, libpng-devel, XFree86-devel, imake
+BuildRequires: libjpeg-devel, libpng-devel, X11-devel, imake
 
 %description
 The transfig utility creates a makefile which translates FIG (created by xfig)
