@@ -1,6 +1,6 @@
 %define name	transfig
 %define version	3.2.5
-%define release	%mkrel 1
+%define release	%mkrel 2
 %if %{mdkversion} >= 200700
 %define prefix	%{_prefix}
 %define bindir	%{_bindir}
