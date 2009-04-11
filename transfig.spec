@@ -20,6 +20,7 @@ Group: 	 Graphics
 Source: http://www.xfig.org/software/xfig/%{version}/%{name}.%{version}.tar.bz2
 Patch1: transfig.3.2.5-lib64support.patch
 Patch2: transfig.3.2.5-use-tempfile-for-bitmap-eps.patch
+Patch3: transfig.3.2.5-fix-str-fmt.patch
 URL: http://www.xfig.org
 Buildroot: %{_tmppath}/%{name}-%{version}-root
 BuildRequires: libjpeg-devel, libpng-devel, X11-devel, imake
@@ -31,11 +32,10 @@ PostScript(TM)). Transfig is used to create TeX documents which are portable
 (i.e., they can be printed in a wide variety of environments).
 
 %prep
-rm -rf $RPM_BUILD_ROOT
-
 %setup -q -n %{name}.%{version}
 %patch1 -p1 -b .lib64support
 %patch2 -p1 -b .tmpepsfile
+%patch3 -p0 -b .str
 
 %build
 xmkmf
