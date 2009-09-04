@@ -1,6 +1,6 @@
 %define name	transfig
-%define version	3.2.5
-%define release	%mkrel 4
+%define version	3.2.5a
+%define release	%mkrel 1
 %if %{mdkversion} >= 200700
 %define prefix	%{_prefix}
 %define bindir	%{_bindir}
@@ -17,7 +17,7 @@ Version: %{version}
 Release: %{release}
 License: MIT
 Group: 	 Graphics
-Source: http://www.xfig.org/software/xfig/%{version}/%{name}.%{version}.tar.bz2
+Source: http://www.xfig.org/software/xfig/%{version}/%{name}.%{version}.tar.gz
 Patch1: transfig.3.2.5-lib64support.patch
 Patch2: transfig.3.2.5-use-tempfile-for-bitmap-eps.patch
 Patch3: transfig.3.2.5-fix-str-fmt.patch
