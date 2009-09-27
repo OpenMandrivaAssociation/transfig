@@ -1,6 +1,6 @@
 %define name	transfig
 %define version	3.2.5a
-%define release	%mkrel 1
+%define release	%mkrel 2
 %if %{mdkversion} >= 200700
 %define prefix	%{_prefix}
 %define bindir	%{_bindir}
@@ -21,6 +21,7 @@ Source: http://www.xfig.org/software/xfig/%{version}/%{name}.%{version}.tar.gz
 Patch1: transfig.3.2.5-lib64support.patch
 Patch2: transfig.3.2.5-use-tempfile-for-bitmap-eps.patch
 Patch3: transfig.3.2.5-fix-str-fmt.patch
+Patch4: transfig_optopt.patch
 URL: http://www.xfig.org
 Buildroot: %{_tmppath}/%{name}-%{version}-root
 BuildRequires: libjpeg-devel, libpng-devel, X11-devel, imake
@@ -36,6 +37,7 @@ PostScript(TM)). Transfig is used to create TeX documents which are portable
 %patch1 -p1 -b .lib64support
 %patch2 -p1 -b .tmpepsfile
 %patch3 -p0 -b .str
+%patch4 -p1 -b .opt
 
 %build
 xmkmf
