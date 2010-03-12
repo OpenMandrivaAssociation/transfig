@@ -1,6 +1,6 @@
 %define name	transfig
 %define version	3.2.5c
-%define release	%mkrel 1
+%define release	%mkrel 2
 %if %{mdkversion} >= 200700
 %define prefix	%{_prefix}
 %define bindir	%{_bindir}
@@ -25,6 +25,7 @@ Patch4: transfig_optopt.patch
 URL: http://www.xfig.org
 Buildroot: %{_tmppath}/%{name}-%{version}-root
 BuildRequires: libjpeg-devel, libpng-devel, X11-devel, imake
+BuildRequires: tcsh
 
 %description
 The transfig utility creates a makefile which translates FIG (created by xfig)
