@@ -1,15 +1,6 @@
 %define name	transfig
 %define version	3.2.5c
-%define release	%mkrel 3
-%if %{mdkversion} >= 200700
-%define prefix	%{_prefix}
-%define bindir	%{_bindir}
-%define mandir	%{_mandir}
-%else
-%define prefix	/usr/X11R6
-%define bindir	%{prefix}/bin
-%define mandir	%{prefix}/man
-%endif
+%define release	%mkrel 5
 
 Summary: A utility for converting FIG files (created by xfig) to other formats
 Name: %{name}
@@ -24,7 +15,9 @@ Patch3: transfig.3.2.5-fix-str-fmt.patch
 Patch4: transfig_optopt.patch
 URL: http://www.xfig.org
 Buildroot: %{_tmppath}/%{name}-%{version}-root
-BuildRequires: libjpeg-devel, libpng-devel, X11-devel, imake
+BuildRequires: libxpm-devel
+BuildRequires: png-devel
+BuildRequires: imake
 BuildRequires: tcsh
 
 %description
@@ -47,7 +40,7 @@ make Makefiles
 %ifarch alpha
 %make EXTRA_DEFINES="-Dcfree=free"
 %else
-%make CDEBUGFLAGS="$RPM_OPT_FLAGS"
+%make CDEBUGFLAGS="%optflags" SHLIBGLOBALSFLAGS="%ldflags" EXTRA_LDOPTIONS="%ldflags"
 %endif
 
 %install
@@ -62,12 +55,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %doc CHANGES NOTES README
-%{bindir}/fig2dev
-%{bindir}/fig2ps2tex
-%{bindir}/fig2ps2tex.sh
-%{bindir}/pic2tpic
-%{bindir}/transfig
-%{mandir}/man?/*
-%{prefix}/lib/X11/xfig/bitmaps
-%dir %{_datadir}/fig2dev/
+%{_bindir}/*
+%{_mandir}/man?/*
+%{_prefix}/lib/X11/xfig/bitmaps
 %{_datadir}/fig2dev/*.ps
