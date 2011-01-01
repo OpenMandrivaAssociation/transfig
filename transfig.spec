@@ -1,6 +1,6 @@
 %define name	transfig
-%define version	3.2.5c
-%define release	%mkrel 5
+%define version	3.2.5d
+%define release	%mkrel 1
 
 Summary: A utility for converting FIG files (created by xfig) to other formats
 Name: %{name}
