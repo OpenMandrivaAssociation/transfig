@@ -1,6 +1,6 @@
 %define name	transfig
 %define version	3.2.5d
-%define release	%mkrel 3
+%define release	%mkrel 4
 
 Summary: A utility for converting FIG files (created by xfig) to other formats
 Name: %{name}
@@ -13,6 +13,7 @@ Patch1: transfig.3.2.5-lib64support.patch
 Patch2: transfig.3.2.5-use-tempfile-for-bitmap-eps.patch
 Patch3: transfig.3.2.5-fix-str-fmt.patch
 Patch4: transfig_optopt.patch
+Patch5:	transfig.3.2.5-png1.5.patch
 URL: http://www.xfig.org
 Buildroot: %{_tmppath}/%{name}-%{version}-root
 BuildRequires: libxpm-devel
@@ -32,6 +33,7 @@ PostScript(TM)). Transfig is used to create TeX documents which are portable
 %patch2 -p1 -b .tmpepsfile
 %patch3 -p0 -b .str
 %patch4 -p1 -b .opt
+%patch5 -p1
 
 %build
 xmkmf
