@@ -46,13 +46,13 @@ make Makefiles
 %endif
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
-make DESTDIR=$RPM_BUILD_ROOT install
-make DESTDIR=$RPM_BUILD_ROOT install.man
+make DESTDIR=%{buildroot} install
+make DESTDIR=%{buildroot} install.man
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
