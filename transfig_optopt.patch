@@ -1,0 +1,26 @@
+---
+ fig2dev/getopt.c |    4 	4 +	0 -	0 !
+ 1 file changed, 4 insertions(+)
+
+Index: transfig.3.2.5/fig2dev/getopt.c
+===================================================================
+--- transfig.3.2.5.orig/fig2dev/getopt.c	2003-04-08 18:41:23.000000000 -0400
++++ transfig.3.2.5/fig2dev/getopt.c	2009-06-05 17:32:24.000000000 -0400
+@@ -47,6 +47,7 @@ index (s, c)
+ 	return (NULL);
+ }
+ 
++#ifndef __linux__
+ /*
+  * get option letter from argument vector
+  */
+@@ -54,6 +55,9 @@ int	opterr = 1,		/* useless, never set o
+ 	optind = 1,		/* index into parent argv vector */
+ 	optopt;			/* character checked for validity */
+ char	*optarg;		/* argument associated with option */
++#else
++#include <getopt.h>
++#endif
+ 
+ #define tell(s)	fputs(*nargv,stderr);fputs(s,stderr); \
+ 		fputc(optopt,stderr);fputc('\n',stderr);return(BADCH);

@@ -1,0 +1,110 @@
+--- transfig.3.2.5/fig2dev/dev/genbitmaps.c.old	2005-08-18 18:29:09.000000000 +0200
++++ transfig.3.2.5/fig2dev/dev/genbitmaps.c	2007-05-25 17:52:11.476293666 +0200
+@@ -30,7 +30,7 @@
+ #include "object.h"
+ #include "texfonts.h"
+ 
+-static	char	 *gsdev,tmpname[PATH_MAX];
++static	char	 *gsdev,tmpname[PATH_MAX],tmpeps[PATH_MAX];
+ static	Boolean	 direct;
+ static	FILE	*saveofile;
+ static	char	*ofile;
+@@ -105,7 +105,6 @@
+ genbitmaps_start(objects)
+ F_compound	*objects;
+ {
+-    char extra_options[200];
+     float bd;
+ 
+     bd = border_margin * THICK_SCALE;
+@@ -125,7 +124,6 @@
+ 
+     direct = True;
+     ofile = (to == NULL? "-": to);
+-    extra_options[0]='\0';
+ 
+     gsdev = NULL;
+     /* if we're smoothing, we'll generate ppm and tell gs to
+@@ -141,12 +139,6 @@
+ 	gsdev="tiff24nc";
+     } else if (strcmp(lang,"jpeg")==0) {
+ 	gsdev="jpeg";
+-	/* set quality for JPEG */
+-	sprintf(extra_options," -dJPEGQ=%d",jpeg_quality);
+-    }
+-    if (smooth > 1) {
+-      sprintf(extra_options+strlen(extra_options),
+-	      " -dTextAlphaBits=%d -dGraphicsAlphaBits=%d",smooth,smooth);
+     }
+     /* no driver in gs or we're smoothing, use ppm output then use ppmtoxxx later */
+     if (gsdev == NULL) {
+@@ -158,21 +150,19 @@
+ 	    direct = False;
+ 	}
+     }
+-    /* make up the command for gs */
+-    sprintf(gscom, "gs -q -dSAFER -sDEVICE=%s -r80 -g%dx%d -sOutputFile=%s%s -",
+-		   gsdev, width, height, ofile, extra_options);
+     /* divert output from ps driver to the pipe into ghostscript */
+     /* but first close the output file that main() opened */
+     saveofile = tfp;
+     if (tfp != stdout)
+ 	fclose(tfp);
+ 
+-    (void) signal(SIGPIPE, gs_broken_pipe);
+-    if ((tfp = popen(gscom,"w" )) == 0) {
+-	fprintf(stderr,"fig2dev: Can't open pipe to ghostscript\n");
+-	fprintf(stderr,"command was: %s\n", gscom);
++    /* make name for temp output file */
++    sprintf(tmpeps, "%s/xfig%06d.tmpeps", TMPDIR, getpid());
++    if ((tfp = fopen(tmpeps, "w"))==0) {
++	fprintf(stderr,"Can't create temp file in %s\n",TMPDIR);
+ 	exit(1);
+     }
++
+     /* generate eps and not ps */
+     epsflag = True;
+     genps_start(objects);
+@@ -185,6 +175,7 @@
+ 	char	 errfname[PATH_MAX];
+ 	char	*tmpname1;
+ 	int	 status;
++	char	 extra_options[200];
+ 
+ 	/* wrap up the postscript output */
+ 	if (genps_end() != 0)
+@@ -193,7 +184,23 @@
+ 	/* add a showpage so ghostscript will produce output */
+ 	fprintf(tfp, "showpage\n");
+ 
+-	status = pclose(tfp);
++	fclose(tfp);
++
++	/* make up the command for gs */
++	extra_options[0]='\0';
++	if (strcmp(lang,"jpeg")==0) {
++	    /* set quality for JPEG */
++	    sprintf(extra_options," -dJPEGQ=%d",jpeg_quality);
++	}
++	if (smooth > 1) {
++	    sprintf(extra_options+strlen(extra_options),
++	      " -dTextAlphaBits=%d -dGraphicsAlphaBits=%d",smooth,smooth);
++	}
++	sprintf(gscom, "gs -q -dBATCH -dSAFER -sDEVICE=%s -r80 -g%dx%d -sOutputFile=%s%s %s > /dev/null < /dev/null",
++	        gsdev, width, height, ofile, extra_options, tmpeps);
++
++	status = system(gscom);
++
+ 	/* we've already closed the original output file */
+ 	tfp = 0;
+ 	if (status != 0) {
+@@ -203,6 +210,9 @@
+ 	}
+ 	(void) signal(SIGPIPE, SIG_DFL);
+ 
++	/* remove the temp eps file */
++	unlink(tmpeps);
++
+ 	/* all ok so far */
+ 	status = 0;
+ 
