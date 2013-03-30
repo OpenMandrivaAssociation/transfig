@@ -1,0 +1,2 @@
+# false positive
+addFilter("E: script-without-shebang")

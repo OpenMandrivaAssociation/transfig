@@ -1,11 +1,12 @@
 Summary:	A utility for converting FIG files (created by xfig) to other formats
 Name:		transfig
 Version:	3.2.5d
-Release:	5
+Release:	6
 License:	MIT
 Group:		Graphics
 URL:		http://www.xfig.org
-Source:		http://www.xfig.org/software/xfig/%{version}/%{name}.%{version}.tar.gz
+Source0:	http://www.xfig.org/software/xfig/%{version}/%{name}.%{version}.tar.gz
+Source100:	%name.rpmlintrc
 Patch1:		transfig.3.2.5-lib64support.patch
 Patch2:		transfig.3.2.5-use-tempfile-for-bitmap-eps.patch
 Patch3:		transfig.3.2.5-fix-str-fmt.patch
@@ -29,6 +30,9 @@ PostScript(TM)). Transfig is used to create TeX documents which are portable
 %patch3 -p0 -b .str
 %patch4 -p1 -b .opt
 %patch5 -p1
+
+# Fix rpmlint error "E: non-readable"
+find . -name "*.c" -o -name "*.h" -o -name README -o -name CHANGES -o -name NOTES |xargs chmod 0644
 
 %build
 xmkmf
