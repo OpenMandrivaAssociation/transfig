@@ -1,7 +1,7 @@
 Summary:	A utility for converting FIG files (created by xfig) to other formats
 Name:		transfig
 Version:	3.2.5d
-Release:	8
+Release:	9
 License:	MIT
 Group:		Graphics
 URL:		http://www.xfig.org
