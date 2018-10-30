@@ -1,7 +1,7 @@
 Summary:	A utility for converting FIG files (created by xfig) to other formats
 Name:		transfig
 Version:	3.2.5d
-Release:	14
+Release:	15
 License:	MIT
 Group:		Graphics
 URL:		http://www.xfig.org
@@ -75,7 +75,7 @@ make DESTDIR=%{buildroot} install.man
 + Revision: 608040
 - rebuild
 
-* Fri Mar 12 2010 Götz Waschk <waschk@mandriva.org> 3.2.5c-2mdv2010.1
+* Fri Mar 12 2010 GÃ¶tz Waschk <waschk@mandriva.org> 3.2.5c-2mdv2010.1
 + Revision: 518367
 - update build deps
 
@@ -146,7 +146,7 @@ make DESTDIR=%{buildroot} install.man
 * Mon Mar 28 2005 Daouda LO <daouda@mandrakesoft.com> 3.2.5-0.1mdk
 - release for xfig-3.2.5
 
-* Thu Dec 09 2004 G�tz Waschk <waschk@linux-mandrake.com> 3.2.4-4mdk
+* Thu Dec 09 2004 Götz Waschk <waschk@linux-mandrake.com> 3.2.4-4mdk
 - add html docs
 - add new files
 - fix buildrequires
