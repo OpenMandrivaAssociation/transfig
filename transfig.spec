@@ -1,3 +1,4 @@
+%define _disable_lto %nil
 Summary:	A utility for converting FIG files (created by xfig) to other formats
 Name:		transfig
 Version:	3.2.5d
